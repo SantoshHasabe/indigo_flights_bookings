@@ -37,14 +37,14 @@ class CrudRepository {
         return response;
     }
 
-    async update(id,data){   //data must be object {col:val,...}
-        const response = await this.model.update(data,{
-            where: {
-                id: id
-            }
-        });
+    async update(id, data) {
+        const airplane = await this.model.findByPk(id);
+        if(!airplane){
+            throw new AppError("Not able to found resource", StatusCodes.NOT_FOUND)
+        }
+        const response = await airplane.update(data);
         return response;
-    }
+    }           
 }
 
 module.exports = CrudRepository;

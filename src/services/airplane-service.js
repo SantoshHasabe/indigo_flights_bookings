@@ -51,10 +51,22 @@ async function destroyAirplane(id) {
         throw new AppError("Can not destroy airplane", StatusCodes.INTERNAL_SERVER_ERROR);
     }
 }
+async function updateAirplane(id, data){
+    try {        
+        const response = await airplaneRepository.update(id,data);
+        return response;
+    } catch (error) { 
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError("Airplane you requested to update not found", error.statusCode);
+        }   
+        throw new AppError("Can not update airplane", StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
 
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
-    destroyAirplane
+    destroyAirplane,
+    updateAirplane
 }
