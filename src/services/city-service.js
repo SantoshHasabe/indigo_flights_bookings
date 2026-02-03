@@ -31,8 +31,6 @@ async function getCities() {
 
 async function getCity(id) {
     try {        
-        console.log(id);
-        
         const city = await cityRepository.get(id);
         return city;
     } catch (error) {
